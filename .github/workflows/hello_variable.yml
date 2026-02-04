@@ -11,7 +11,7 @@ jobs:
       - name: "Say Hello!"
         run: echo "Hello $PersonalName, is equal to ${{vars.MY_NAME}}."
         env:
-          PersonalName: '${{ vars.MY_NAME }}'
+          PersonalName: '${{ secrets.MY_OBS_SECRET }}'
 
       - name: Check out repository code
         uses: actions/checkout@v4
