@@ -14,13 +14,13 @@ jobs:
         BRANCH_TYPE: ${{ steps.branch_type_identificator.outputs.BRANCH_TYPE }}
     steps:
       - name: Is productive branch
-        if: ${{ github.ref_name == 'main' || contains(github.ref_name, 'hotfix') || contains(github.ref_name, 'patch') }}
+        if: ${{ github.ref_name == 'main' || github.ref_name == 'master' || contains(github.ref_name, 'hotfix') || contains(github.ref_name, 'patch') }}
         run: |
           echo "BRANCH_TYPE=PROD" >> $GITHUB_ENV
           echo "Productive Branch ${{ github.ref_name }}"
         
       - name: Is DEV branch
-        if: ${{ github.ref_name!='main' && !contains(github.ref_name, 'hotfix') && !contains(github.ref_name, 'patch') }}
+        if: ${{ github.ref_name!='main' && github.ref_name!='master' && !contains(github.ref_name, 'hotfix') && !contains(github.ref_name, 'patch') }}
         run: |
           echo "BRANCH_TYPE=DEV" >> $GITHUB_ENV
           echo "Development Branch ${{ github.ref_name }}"
